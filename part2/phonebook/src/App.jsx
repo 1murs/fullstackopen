@@ -15,18 +15,10 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
 
-  const handleNewName = (event) => {
-    console.log(event.target.value);
-    setNewName(event.target.value);
-  };
-
-  const filtered = persons.filter((person) =>
-    person.name.toLowerCase().includes(search.toLowerCase()),
-  );
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter value={search} setSearch={setSearch} />
+      <Filter search={search} setSearch={setSearch} />
       <h3>Add a new</h3>
       <PersonForm
         persons={persons}
