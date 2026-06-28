@@ -1,3 +1,5 @@
+import personService from "../services/persons";
+
 const PersonForm = ({
   persons,
   newName,
@@ -13,15 +15,21 @@ const PersonForm = ({
       setNewName("");
       return;
     }
-    const newObject = {
+    const newPerson = {
       name: newName,
       number: newNumber,
       id: String(persons.length + 1),
     };
-    setPersons(persons.concat(newObject));
-    setNewName("");
-    setNewNumber("");
+
+    // create a person in db.json
+    personService.createPerson(newPerson).then((returnedPerson) => {
+      console.log(returnedPerson);
+      setPersons(persons.concat(returnedPerson));
+      setNewName("");
+      setNewNumber("")
+    });
   };
+
   const handleNewNumber = (event) => {
     setNewNumber(event.target.value);
   };
