@@ -10,23 +10,43 @@ const PersonForm = ({
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
-    if (persons.filter((person) => person.name === newName).length > 0) {
-      window.alert(`${newName} is already added to phonebook`);
-      setNewName("");
+    const isSamePerson = persons.find((person) => person.name === newName);
+    if (isSamePerson) {
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const toChangePerson = {
+          ...isSamePerson,
+          number: newNumber,
+        };
+        personService
+          .updatePerson(toChangePerson.id, toChangePerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== returnedPerson.id ? person : returnedPerson,
+              ),
+            );
+            setNewName("");
+            setNewNumber("");
+          });
+      } else {
+        setNewName("");
+        setNewNumber("");
+        return;
+      }
+
       return;
     }
     const newPerson = {
       name: newName,
       number: newNumber,
-      // id: String(persons.length + 1), why ?  because json-server himself return people already with [ id ] 
+      // id: String(persons.length + 1), why ?  because json-server himself return people already with [ id ]
     };
 
     // create a person in db.json
     personService.createPerson(newPerson).then((returnedPerson) => {
-      console.log(returnedPerson);
       setPersons(persons.concat(returnedPerson));
       setNewName("");
-      setNewNumber("")
+      setNewNumber("");
     });
   };
 

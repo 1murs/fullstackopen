@@ -2,17 +2,16 @@ import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
-import peronService from "./services/persons";
+import personService from "./services/persons";
 
 const App = () => {
-  // const [persons, setPersons] = useState([]);
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    peronService.getAllPersons().then((initialPersons) => {
+    personService.getAllPersons().then((initialPersons) => {
       setPersons(initialPersons);
     });
   }, []);
@@ -31,7 +30,7 @@ const App = () => {
         setNewNumber={setNewNumber}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} search={search} />
+      <Persons persons={persons} search={search} setPersons={setPersons} />
     </div>
   );
 };
