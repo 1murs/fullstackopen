@@ -18,7 +18,7 @@ const PersonForm = ({
     const newPerson = {
       name: newName,
       number: newNumber,
-      id: String(persons.length + 1),
+      // id: String(persons.length + 1), why ?  because json-server himself return people already with [ id ] 
     };
 
     // create a person in db.json
