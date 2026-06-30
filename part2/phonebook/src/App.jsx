@@ -31,7 +31,6 @@ const App = () => {
         setNewName={setNewName}
         setPersons={setPersons}
         setNewNumber={setNewNumber}
-        addedMessage={addedMessage}
         setAddedMessage={setAddedMessage}
       />
       <h2>numbers</h2>

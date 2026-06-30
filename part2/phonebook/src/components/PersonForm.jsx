@@ -7,7 +7,6 @@ const PersonForm = ({
   setNewName,
   setPersons,
   setNewNumber,
-  addedMessage,
   setAddedMessage,
 }) => {
   const addPerson = (event) => {
@@ -50,15 +49,15 @@ const PersonForm = ({
 
     // create a person in db.json
     personService.createPerson(newPerson).then((returnedPerson) => {
+      // Notification
+      setAddedMessage(`Added ${returnedPerson.name}`);
+      setTimeout(() => {
+        setAddedMessage(null);
+      }, 5000);
       setPersons(persons.concat(returnedPerson));
       setNewName("");
       setNewNumber("");
     });
-    // Notification
-    setAddedMessage(`Added ${newName}`);
-    setTimeout(() => {
-      setAddedMessage(null);
-    }, 5000);
   };
 
   const handleNewNumber = (event) => {
