@@ -7,12 +7,18 @@ const PersonForm = ({
   setNewName,
   setPersons,
   setNewNumber,
+  addedMessage,
+  setAddedMessage,
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
     const isSamePerson = persons.find((person) => person.name === newName);
     if (isSamePerson) {
-      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`,
+        )
+      ) {
         const toChangePerson = {
           ...isSamePerson,
           number: newNumber,
@@ -48,6 +54,11 @@ const PersonForm = ({
       setNewName("");
       setNewNumber("");
     });
+    // Notification
+    setAddedMessage(`Added ${newName}`);
+    setTimeout(() => {
+      setAddedMessage(null);
+    }, 5000);
   };
 
   const handleNewNumber = (event) => {

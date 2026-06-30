@@ -14,11 +14,6 @@
       "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": "3"
-    },
-    {
-      "name": "sdfsadfasdf",
-      "number": "040-123456",
-      "id": "J9bhQoqnr3U"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
