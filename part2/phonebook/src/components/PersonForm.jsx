@@ -32,12 +32,20 @@ const PersonForm = ({
             );
 
             setAddedMessage(`Changed number for ${returnedPerson.name}`);
-               setTimeout(() => {
-                 setAddedMessage(null);
-               }, 5000);
-               
+            setTimeout(() => {
+              setAddedMessage(null);
+            }, 5000);
+
             setNewName("");
             setNewNumber("");
+          })
+          .catch(() => {
+            setAddedMessage(
+              `Information of ${newName} has already been removed from server`,
+            );
+            setTimeout(() => {
+              setAddedMessage(null);
+            }, 5000);
           });
       } else {
         setNewName("");
