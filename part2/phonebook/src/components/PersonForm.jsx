@@ -30,6 +30,13 @@ const PersonForm = ({
                 person.id !== returnedPerson.id ? person : returnedPerson,
               ),
             );
+
+            setAddedMessage(`Changed number for ${returnedPerson.name}`);
+           
+               setTimeout(() => {
+                 setAddedMessage(null);
+               }, 5000);
+               
             setNewName("");
             setNewNumber("");
           });
@@ -49,12 +56,12 @@ const PersonForm = ({
 
     // create a person in db.json
     personService.createPerson(newPerson).then((returnedPerson) => {
+      setPersons(persons.concat(returnedPerson));
       // Notification
       setAddedMessage(`Added ${returnedPerson.name}`);
       setTimeout(() => {
         setAddedMessage(null);
       }, 5000);
-      setPersons(persons.concat(returnedPerson));
       setNewName("");
       setNewNumber("");
     });
