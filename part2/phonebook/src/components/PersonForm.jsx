@@ -11,7 +11,9 @@ const PersonForm = ({
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
+
     const isSamePerson = persons.find((person) => person.name === newName);
+
     if (isSamePerson) {
       if (
         window.confirm(
@@ -22,6 +24,7 @@ const PersonForm = ({
           ...isSamePerson,
           number: newNumber,
         };
+
         personService
           .updatePerson(toChangePerson.id, toChangePerson)
           .then((returnedPerson) => {
@@ -31,7 +34,11 @@ const PersonForm = ({
               ),
             );
 
-            setAddedMessage(`Changed number for ${returnedPerson.name}`);
+            setAddedMessage({
+              text: `Changed number for ${returnedPerson.name}`,
+              type: "success",
+            });
+
             setTimeout(() => {
               setAddedMessage(null);
             }, 5000);
@@ -40,9 +47,15 @@ const PersonForm = ({
             setNewNumber("");
           })
           .catch(() => {
-            setAddedMessage(
-              `Information of ${newName} has already been removed from server`,
+            setAddedMessage({
+              text: `Information of ${toChangePerson.name} has already been removed from server`,
+              type: "error",
+            });
+
+            setPersons(
+              persons.filter((person) => person.id !== toChangePerson.id),
             );
+
             setTimeout(() => {
               setAddedMessage(null);
             }, 5000);
@@ -50,25 +63,28 @@ const PersonForm = ({
       } else {
         setNewName("");
         setNewNumber("");
-        return;
       }
 
       return;
     }
+
     const newPerson = {
       name: newName,
       number: newNumber,
-      // id: String(persons.length + 1), why ?  because json-server himself return people already with [ id ]
     };
 
-    // create a person in db.json
     personService.createPerson(newPerson).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson));
-      // Notification
-      setAddedMessage(`Added ${returnedPerson.name}`);
+
+      setAddedMessage({
+        text: `Added ${returnedPerson.name}`,
+        type: "success",
+      });
+
       setTimeout(() => {
         setAddedMessage(null);
       }, 5000);
+
       setNewName("");
       setNewNumber("");
     });
@@ -77,9 +93,11 @@ const PersonForm = ({
   const handleNewNumber = (event) => {
     setNewNumber(event.target.value);
   };
+
   const handleNewName = (event) => {
     setNewName(event.target.value);
   };
+
   return (
     <form onSubmit={addPerson}>
       <div>
