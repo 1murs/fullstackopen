@@ -34,7 +34,7 @@ const App = () => {
         setAddedMessage={setAddedMessage}
       />
       <h2>numbers</h2>
-      <Persons persons={persons} search={search} setPersons={setPersons} />
+      <Persons persons={persons} search={search} setPersons={setPersons} setAddedMessage={setAddedMessage}/>
     </div>
   );
 };
