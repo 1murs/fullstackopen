@@ -13,9 +13,10 @@ const Persons = ({ persons, search, setPersons, setAddedMessage }) => {
           setPersons(persons.filter((person) => person.id !== id));
         })
         .catch(() => {
-          setAddedMessage(
-            `Information of ${person.name} has already been removed from server`,
-          );
+          setAddedMessage({
+            text: `Information of ${person.name} has already been removed from server`,
+            type: "error",
+          });
           setPersons(persons.filter((person) => person.id !== id));
           setTimeout(() => {
             setAddedMessage(null);
